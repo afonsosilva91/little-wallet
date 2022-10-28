@@ -9,14 +9,6 @@
     "type": "git",
     "url": "git+https://github.com/afonsosilva91/little-wallet.git"
   },
-  "dependencies": {
-    "@web3modal/ethereum": "^2.0.0-beta.1",
-    "@web3modal/react": "^2.0.0-beta.1",
-    "ethers": "^5.7.2",
-    "next": "13.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
   "author": "",
   "license": "ISC",
   "bugs": {
