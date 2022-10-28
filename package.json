@@ -5,11 +5,10 @@
   "main": "index.js",
   "scripts": {
   },
-<<<<<<< HEAD
   "repository": {
     "type": "git",
     "url": "git+https://github.com/afonsosilva91/little-wallet.git"
-=======
+  },
   "dependencies": {
     "@web3modal/ethereum": "^2.0.0-beta.1",
     "@web3modal/react": "^2.0.0-beta.1",
@@ -17,12 +16,11 @@
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0"
->>>>>>> 378f87368c5f2fc97970be5e9fd1e179f8619940
   },
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/afonsosilva91/little-wallet/issues"
   },
-  "homepage": "https://github.com/afonsosilva91/little-wallet#readme",
+  "homepage": "https://github.com/afonsosilva91/little-wallet#readme"
 }
