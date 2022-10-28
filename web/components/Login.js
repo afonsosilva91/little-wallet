@@ -1,6 +1,4 @@
-import { Web3Modal } from '@web3modal/react'
-import { Web3Button, useAccount } from '@web3modal/react';
-import { useDisconnect } from '@web3modal/react'
+import { Web3Modal, Web3Button, useAccount, useDisconnect } from '@web3modal/react'
 
 const config = {
   projectId: '8f6b3f536190073bbe77b9d66f4d22da',
@@ -15,14 +13,10 @@ export default function Login() {
   const { account } = useAccount()
   const disconnect = useDisconnect()
 
-  const disconnectWallet = () => {
-    disconnect()
-  };
-
   return (
     <>
       {account.isConnected ? <h1>{account.address}</h1> : null}
-      {account.isConnected ? <button onClick={()=> disconnectWallet()}>Disconnect</button> : <Web3Button />}
+      {account.isConnected ? <button onClick={disconnect}>Disconnect</button> : <Web3Button />}
       <Web3Modal config={config} />
     </>
   );
