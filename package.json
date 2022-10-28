@@ -1,20 +1,18 @@
 {
   "name": "little-wallet",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "ETHLisbon Hackaton - Little Wallet for finance education on young people",
+  "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
   },
-  "dependencies": {
-    "next": "13.0.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afonsosilva91/little-wallet.git"
   },
-  "devDependencies": {
-    "eslint": "8.26.0",
-    "eslint-config-next": "13.0.0"
-  }
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afonsosilva91/little-wallet/issues"
+  },
+  "homepage": "https://github.com/afonsosilva91/little-wallet#readme",
 }
