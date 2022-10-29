@@ -14,9 +14,6 @@ contract FamilyBank is ERC20, AccessControl {
         string name;
     }
 
-<<<<<<< HEAD
-    mapping(address => Person) public children;
-=======
     struct Investment {
         uint256 principal;
         uint256 interest;
@@ -24,15 +21,25 @@ contract FamilyBank is ERC20, AccessControl {
         bool isPaidOut;
     }
 
+    struct Loan {
+        uint256 principal;
+        uint256 interest;
+        uint256 dueTime;
+        bool isRepaid;
+    }
+
     mapping(address => Person) children;
->>>>>>> d5e981e5667a7765a944497ec1f3de1c80dc3ffb
 
     mapping(address => mapping(uint256 => Investment)) investments;
     mapping(address => uint256) investmentCounter;
-    mapping(address => uint256) borrowed;
+
+    mapping(address => mapping(uint256 => Loan)) loans;
+    mapping(address => uint256) loanCounter;
+
+    mapping(address => uint256) nextPayoutTime;
 
     uint256 public investmentInterest = 20;
-    uint256 public borrowInterest;
+    uint256 public borrowInterest = 20;
     uint256 public weeklyPayoutAmount = 2000;
 
     function decimals() public pure override returns (uint8) {
@@ -50,36 +57,44 @@ contract FamilyBank is ERC20, AccessControl {
     function addChild(address _child, string memory name) external onlyRole(PARENT_ROLE) {
         children[_child] = Person(name);
         _grantRole(CHILD_ROLE, _child);
+        nextPayoutTime[_child] = block.timestamp;
     }
 
     function removeChild(address _child) external onlyRole(PARENT_ROLE) {
         delete children[_child];
     }
 
+<<<<<<< HEAD
     function getChild(address _child) external view returns(string memory) {
         return children[_child].name;
     }
 
     function triggerWeeklyPayout(address _child) public onlyRole(DEFAULT_ADMIN_ROLE) {
         // pay out the weekly allowance minus the debt and interest
+=======
+    function triggerWeeklyPayout(address _child) public {
+        require(
+            hasRole(DEFAULT_ADMIN_ROLE, msg.sender) || (hasRole(CHILD_ROLE, msg.sender) && msg.sender == _child),
+            "Family Bank: Access Denied"
+        );
+        require(nextPayoutTime[_child] <= block.timestamp, "FamilyBank: Too soon");
+>>>>>>> 60ed90576ac5a745f0a13c237fa36fccfd2ce756
         require(balanceOf(parent) >= weeklyPayoutAmount, "FamilyBank: Not enough funds for the payout");
 
         uint256 payout = weeklyPayoutAmount;
-        if (borrowed[_child] > 0) {
-            payout = payout - investmentInterest * borrowed[_child];
-        }
+        nextPayoutTime[_child] += 1 weeks;
 
         _transfer(parent, _child, payout);
     }
 
-    function calculateInterest(uint256 _sum) public view returns (uint256) {
+    function calculateInvestmentInterest(uint256 _sum) public view returns (uint256) {
         return _sum * investmentInterest / 100;
     }
 
     function invest(uint256 _sum) external onlyRole(CHILD_ROLE) {
         address child = msg.sender;
         require(balanceOf(child) >= _sum, "FamilyBank: Not enough funds for investment");
-        uint256 interest = calculateInterest(_sum);
+        uint256 interest = calculateInvestmentInterest(_sum);
         uint256 unlockDate = block.timestamp + 1 weeks;
 
         _transfer(child, parent, _sum);
@@ -105,17 +120,40 @@ contract FamilyBank is ERC20, AccessControl {
         address child = msg.sender;
 
         for (uint i = 0; i < investmentCounter[child]; i++) {
-            if(investments[child][i].isPaidOut == false && investments[child][i].unlockTime > block.timestamp) {
+            if(investments[child][i].isPaidOut == false && investments[child][i].unlockTime <= block.timestamp) {
                 withdrawInvestment(child, i);
             } 
         }
     }
 
-    // function invest() {
-    //     // locks the money for 1 week
-    // }
+    function calculateLoanInterest(uint256 _sum) public view returns (uint256) {
+        return _sum * borrowInterest / 100;
+    }
 
-    // function buyItem() {
-    //     // 
-    // }
+    function borrow(uint256 _sum) external onlyRole(CHILD_ROLE) {
+        address child = msg.sender;
+        uint256 interest = calculateLoanInterest(_sum);
+        uint256 repaymentDate = block.timestamp + 1 weeks;
+
+        _transfer(parent, child, _sum);
+
+        loans[child][loanCounter[child]] = Loan(
+            _sum,
+            interest,
+            repaymentDate,
+            false
+        );
+
+        loanCounter[child]++;
+    }
+
+    function checkAccount(address wallet) external view returns (bool existingAccount, string memory name, string memory role) {
+        if (hasRole(PARENT_ROLE, wallet)) {
+            return (true, "", "PARENT");
+        } else if (hasRole(CHILD_ROLE, wallet)) {
+            return (true, children[wallet].name, "CHILD");
+        }
+        
+        return (false, "", "");
+    }
 }
