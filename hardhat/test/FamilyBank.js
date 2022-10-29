@@ -25,6 +25,23 @@ describe("FamilyBank", function () {
 
       expect(await familyBank.balanceOf(child.address)).to.equal("2000");
     });
+
+    it("Should not pay out if less than 1 week passed", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+
+      await expect(familyBank.connect(child).triggerWeeklyPayout(child.address)).to.be.rejectedWith("FamilyBank: Too soon");
+    })
+
+    it("Should pay out $20 every week", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+
+      await time.increase(ONE_WEEK);
+
+      await familyBank.connect(child).triggerWeeklyPayout(child.address);
+
+      expect(await familyBank.balanceOf(child.address)).to.equal(4000);
+
+    });
   });
 
   describe("Investing", async function () { 
@@ -32,7 +49,7 @@ describe("FamilyBank", function () {
       const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
 
       const sumToInvest = 2000;
-      const interest = await familyBank.connect(child).calculateInterest(sumToInvest);
+      const interest = await familyBank.connect(child).calculateInvestmentInterest(sumToInvest);
 
       expect(interest).to.equal(400);
     });
@@ -61,7 +78,7 @@ describe("FamilyBank", function () {
       const sumToInvest = 2000;
 
       await familyBank.connect(child).invest(sumToInvest);
-      time.increase(ONE_WEEK);
+      await time.increase(ONE_WEEK);
 
       await familyBank.connect(child).withdrawInvestments();
 
