@@ -2,7 +2,7 @@ require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config()
 
 const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || ''
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || ''
+const CHIADO_GNOSIS_RPC_URL = process.env.CHIADO_GNOSIS_RPC_URL || ''
 const PRIVATE_KEY = process.env.PRIVATE_KEY || ''
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -16,10 +16,10 @@ module.exports = {
       accounts: [PRIVATE_KEY],
       chainId: 1
     },
-    goerli: {
-      url: GOERLI_RPC_URL,
+    gnosis: {
+      url: CHIADO_GNOSIS_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId: 5,
+      chainId: 10200,
     },
     localhost: {
       url: "http://localhost:8545",
