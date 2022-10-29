@@ -16,7 +16,7 @@ function Layout(props) {
             </Head>
             {/* <Header /> */}
             
-            <main className={`page-wrapper px-8 ${dmSans.className}`}>{props.children}</main>
+            <main className={`page-wrapper ${dmSans.className}`}>{props.children}</main>
         </Fragment>
     )
 }
