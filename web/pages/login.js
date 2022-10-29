@@ -1,7 +1,5 @@
 import Image from 'next/image'
-import Link from 'next/link'
-import Login from '../components/Login'
-import { Web3Modal, Web3Button, useAccount, useDisconnect } from '@web3modal/react'
+import { Web3Modal, Web3Button, useAccount, useDisconnect, useConnectModal } from '@web3modal/react'
 
 const config = {
   projectId: '8f6b3f536190073bbe77b9d66f4d22da',
@@ -13,6 +11,7 @@ const config = {
 }
 
 export default function LoginPage() {
+    const { open } = useConnectModal();
     return (
         <>
             <div className="h-screen flex flex-col">
@@ -54,10 +53,9 @@ export default function LoginPage() {
                 <div className="basis-1/12"></div>
                 <div className="basis-3/12">
                     <h2 style={{ marginBottom: '20px' }}>Already have an account?</h2>
-                    <Link href={'#'} className="btn-red hover:btn-red-hover w-4/5">
+                    <div className="btn-red hover:btn-red-hover w-4/5" onClick={open}>
                         Connect Wallet
-                    </Link>
-                    <Web3Button />
+                    </div>
                     <Web3Modal config={config} />
                 </div>
             </div>
