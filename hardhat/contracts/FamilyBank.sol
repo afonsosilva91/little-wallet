@@ -46,12 +46,12 @@ contract FamilyBank is ERC20, AccessControl {
         return 2;
     }
 
-    constructor(address _parent) ERC20("Dollar", "USD") {
+    constructor() ERC20("Dollar", "USD") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(PARENT_ROLE, _parent);
-        parent = _parent;
+        _grantRole(PARENT_ROLE, msg.sender);
+        parent = msg.sender;
         
-        _mint(_parent, 7500);
+        _mint(parent, 7500);
     }
 
     function addChild(address _child, string memory name) external onlyRole(PARENT_ROLE) {
