@@ -1,3 +1,81 @@
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body { 
+  padding: 0;
+  margin: 0;
+  font-family: var(--primary-font);
+}
+
+.btn-red {
+  display: inline-block;
+  min-width: 100%;
+  text-align: center;
+  height: 50px;
+  border-radius: 15px;
+  padding: 15px 50px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+  background: #FF5151;
+}
+.btn-red-hover {
+  background: #e42424;
+}
+
+p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #6E6E82;
+}
+
+h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #232440;
+  text-align: center;
+}
+
+.box-shadow {
+  background: #FFFFFF;
+  box-shadow: 0px 3px 12px -2px rgba(61, 87, 111, 0.2);
+  border-radius: 0px 0px 6px 6px;
+}
+
+.box-account-type {
+  padding: 5px 20px;
+  margin-bottom: 25px;
+  max-height: 170px;
+  
+}
+
+.box-account-type .title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 24px;
+  color: #232440;
+  text-align: left;
+  padding-top: 15%;
+  padding-left: 20px;
+}
+.box-account-type p {
+  text-align: left;
+  padding-left: 20px;
+}
+/* 
 html,
 body {
   padding: 0;
@@ -43,4 +121,4 @@ button:focus-visible {
     color: white;
     background: black;
   }
-}
+} */

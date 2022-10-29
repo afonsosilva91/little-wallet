@@ -2,10 +2,10 @@ import { Web3Modal, Web3Button, useAccount, useDisconnect } from '@web3modal/rea
 
 const config = {
   projectId: '8f6b3f536190073bbe77b9d66f4d22da',
-  theme: 'dark',
+  theme: 'light',
   accentColor: 'default',
   ethereum: {
-    appName: 'web3Modal'
+    appName: 'Little Wallet'
   }
 }
 
