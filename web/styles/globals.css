@@ -43,6 +43,79 @@ body {
   cursor: pointer;
 }
 
+.box-page-header {
+  z-index: 99;
+  position: relative;
+}
+.box-page-header h2 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #FFFFFF;
+}
+.box-page-header h6 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #FEBC11;
+}
+
+.btn-header-icon a {
+  text-align: center;
+}
+.btn-header-icon a img {
+  margin: 0 auto !important;
+}
+
+.header-circle-small {
+  position: absolute;
+    height: 150px;
+    width: 150px;
+    left: 71%;
+    right: 0;
+    border-radius: 100%;
+    top: -28px;
+    border: 20px solid rgba(245, 185, 185, 0.2);
+}
+.header-circle-medium {
+  position: absolute;
+  height: 200px;
+  left: -24.04%;
+  right: 75.55%;
+  top: 66.87px;
+  border-radius: 100%;
+  border: 30px solid rgba(245, 185, 185, 0.2);
+}
+
+.box-history h3,
+.box-family h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 28px;
+  text-transform: capitalize;
+  color: #232440;
+}
+
+.box-family a span {
+  margin-top: 8px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  color: #232440;
+  display: block;
+}
+.box-family a img {
+  padding: 4px;
+  border: 1px solid #ea6d71;
+}
+
 p {
   font-style: normal;
   font-weight: 400;
