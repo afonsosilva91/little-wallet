@@ -5,7 +5,7 @@ import LoginButton from '../components/LoginButton'
 export default function Login() {
     return (
         <>
-            <div className="h-screen flex flex-col">
+            <div className="h-screen flex flex-col px-8">
                 <div className="basis-1/12"></div>
                 <div className="basis-6/12 pt-5">
                     <Image width={400} height={150} style={{ margin: "auto", maxWidth: "300px", marginBottom: '50px'}} alt='' src={'/images/logo-red-450x150.png'} />

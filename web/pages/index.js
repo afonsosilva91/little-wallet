@@ -22,16 +22,19 @@ export default function Home() {
         console.log(data, account)
     })
 
+    const randHash = () => {
+        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    }
     const kids = [
         {
             name: "Kid 1",
             link: "/savings",
-            pictureurl: "https://picsum.photos/50/50.jpg",
+            pictureurl: `https://avatars.dicebear.com/api/identicon/${randHash()}.png`,
         },
         {
             name: "Kid 2",
             link: "/loans",
-            pictureurl: "https://picsum.photos/50/50.jpg",
+            pictureurl: `https://avatars.dicebear.com/api/identicon/${randHash()}.png`,
         },
     ];
 
@@ -51,7 +54,7 @@ export default function Home() {
     ];
 
     return (
-        <div className="h-screen flex flex-col">
+        <div className="h-screen flex flex-col px-8">
             <div style={{ marginLeft: "-2rem", marginRight: "-2rem" }}>
                 <div className="background-red rounded-3xl box-page-header"
                     style={{
@@ -95,7 +98,7 @@ export default function Home() {
                 <div className="flex">
                     {kids.map((kid) => (
                         <Link key={kid.name} href={kid.link} className="mr-4">
-                            <img className="rounded-full" src={kid.pictureurl} />
+                            <Image height={'auto'} width={'auto'} className="rounded-full" src={kid.pictureurl} />
                             <span>{kid.name}</span>
                         </Link>
                     ))}
@@ -112,7 +115,7 @@ export default function Home() {
                         >
                             <tr style={{ height: "60px" }}>
                                 <td className="flex py-4">
-                                    <img
+                                    <Image height={'auto'} width={'auto'} 
                                         className="mr-8"
                                         src={purchase.pictureurl}
                                         style={{ borderRadius: "18px" }}
