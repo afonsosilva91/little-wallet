@@ -46,12 +46,12 @@ contract FamilyBank is ERC20, AccessControl {
         return 2;
     }
 
-    constructor(address _parent) ERC20("Dollar", "USD") {
+    constructor() ERC20("Dollar", "USD") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(PARENT_ROLE, _parent);
-        parent = _parent;
+        _grantRole(PARENT_ROLE, msg.sender);
+        parent = msg.sender;
         
-        _mint(_parent, 7500);
+        _mint(parent, 7500);
     }
 
     function addChild(address _child, string memory name) external onlyRole(PARENT_ROLE) {
@@ -64,21 +64,12 @@ contract FamilyBank is ERC20, AccessControl {
         delete children[_child];
     }
 
-<<<<<<< HEAD
-    function getChild(address _child) external view returns(string memory) {
-        return children[_child].name;
-    }
-
-    function triggerWeeklyPayout(address _child) public onlyRole(DEFAULT_ADMIN_ROLE) {
-        // pay out the weekly allowance minus the debt and interest
-=======
     function triggerWeeklyPayout(address _child) public {
         require(
             hasRole(DEFAULT_ADMIN_ROLE, msg.sender) || (hasRole(CHILD_ROLE, msg.sender) && msg.sender == _child),
             "Family Bank: Access Denied"
         );
         require(nextPayoutTime[_child] <= block.timestamp, "FamilyBank: Too soon");
->>>>>>> 60ed90576ac5a745f0a13c237fa36fccfd2ce756
         require(balanceOf(parent) >= weeklyPayoutAmount, "FamilyBank: Not enough funds for the payout");
 
         uint256 payout = weeklyPayoutAmount;
