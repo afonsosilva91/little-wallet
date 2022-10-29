@@ -6,17 +6,18 @@ const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 
 const ONE_WEEK = 7 * 24 * 60 * 60;
+const FOUR_DAYS = 4 * 24 * 60 * 60;
 
 describe("FamilyBank", function () {
   async function deployFamilyBankFixture() {
-    const [owner, parent, child] = await ethers.getSigners();
+    const [parent, , child] = await ethers.getSigners();
 
     const FamilyBank = await ethers.getContractFactory("FamilyBank");
-    const familyBank = await FamilyBank.deploy(parent.address);
-    await familyBank.connect(parent).addChild(child.address, "Peter");
+    const familyBank = await FamilyBank.deploy();
+    await familyBank.addChild(child.address, "Peter");
     await familyBank.triggerWeeklyPayout(child.address);
 
-    return { familyBank, owner, parent, child };
+    return { familyBank, parent, child };
   }
 
   describe("Weekly Payout", function () {
@@ -91,9 +92,21 @@ describe("FamilyBank", function () {
       const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
 
       const sumToBorrow = 500;
-      const interest = await familyBank.connect(child).calculateLoanInterest(sumToBorrow);
+      const interest = await familyBank.connect(child).calculateLoanInterest(sumToBorrow, child.address);
 
       expect(interest).to.equal(100);
+    });
+
+
+    it("Should reduce the interest if the loan is taken later during the week", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+
+      const sumToBorrow = 500;
+      await time.increase(FOUR_DAYS);
+
+      const interest = await familyBank.connect(child).calculateLoanInterest(sumToBorrow, child.address);
+
+      expect(interest).to.equal(43);
     });
 
     it("Should provide the loan to child", async function () {

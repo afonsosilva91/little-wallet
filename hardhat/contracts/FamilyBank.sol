@@ -109,6 +109,7 @@ contract FamilyBank is ERC20, AccessControl {
 
         return false;
     }
+
     function withdrawInvestment(address _child, uint256 _investmentId) internal {
         Investment memory investment = investments[_child][_investmentId];
         uint256 sumToPayOut = investment.principal + investment.interest;
@@ -126,13 +127,18 @@ contract FamilyBank is ERC20, AccessControl {
         }
     }
 
-    function calculateLoanInterest(uint256 _sum) public view returns (uint256) {
-        return _sum * borrowInterest / 100;
+    function calculateLoanInterest(uint256 _sum, address _child) public view returns (uint256) {
+        uint256 startOfTheWeek = nextPayoutTime[_child] - 1 weeks;
+        
+        uint256 timeLeft = 100 - (block.timestamp - startOfTheWeek) * 100 / 1 weeks;
+        uint256 appliedInterest = timeLeft * borrowInterest;
+
+        return _sum * appliedInterest / (100 * 100);
     }
 
     function borrow(uint256 _sum) external onlyRole(CHILD_ROLE) {
         address child = msg.sender;
-        uint256 interest = calculateLoanInterest(_sum);
+        uint256 interest = calculateLoanInterest(_sum, child);
         uint256 repaymentDate = block.timestamp + 1 weeks;
 
         _transfer(parent, child, _sum);
