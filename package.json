@@ -1,7 +1,7 @@
 {
   "name": "little-wallet",
   "version": "1.0.0",
-  "description": "ETHLisbon Hackaton - Little Wallet for finance education on young people",
+  "description": "ETHLisbon Hackaton - Little Wallet for finance education on younger people",
   "main": "index.js",
   "scripts": {
   },
