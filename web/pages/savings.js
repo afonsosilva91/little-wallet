@@ -1,26 +1,26 @@
-// import {
-//     Chart as ChartJS,
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Legend,
-// } from "chart.js";
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+} from "chart.js";
 import Link from "next/link";
 import Image from "next/image";
-//import { Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 
-// ChartJS.register(
-//     CategoryScale,
-//     LinearScale,
-//     PointElement,
-//     LineElement,
-//     Title,
-//     Tooltip,
-//     Legend
-// );
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+);
 
 const Savings = () => {
     const options = {
@@ -86,7 +86,7 @@ const Savings = () => {
                 <div className="box-graphs px-8 pt-6">
                     <h3 className="w-100 mb-4">Simulation of your possible earnings with your current balance</h3>
                     <div className="">
-                        {/* <Line options={options} data={data} /> */}
+                        <Line options={options} data={data} />
                     </div>
                 </div>
 
