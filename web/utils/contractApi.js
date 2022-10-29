@@ -1,29 +1,31 @@
 import familyBankAbi from "../config/abi.testnet.json";
+import { ethers } from "ethers";
 
 class ContractApi {
   constructor() {
+    this.address = null;
     this.signer = null;
     this.contract = null;
   }
 
   // Needs to be called after the contructor
-  async setup(provider) {
-    const signer = await provider.getSigner();
-    this.signer = signer;
+  async setup() {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const accounts = await provider.send("eth_requestAccounts", []);
+    this.address = accounts[0];
+    this.signer = provider.getSigner();
+
     this.contract = new ethers.Contract(
-      "0x1F262A6654F709b534Ab2F60985f09D1C23aCE4d",
+      "0xd139987758C853179dB0a58c7Ebbb509a15F4c45",
       familyBankAbi,
       provider
     );
   }
 
   async checkAccount() {
-    const tx = await this.contract
-      .connect(this.signer)
-      .checkAccount(this.signer.getAddress());
-
-    const receipt = await tx.wait();
-    return receipt;
+    const result = await this.contract.checkAccount(this.address);
+    console.log("Result", result);
+    return result;
   }
 
   async borrow(amount) {
@@ -33,8 +35,11 @@ class ContractApi {
     return receipt;
   }
 
-  async addChild(address, name) {
-    const tx = await this.contract.connect(this.signer).addChild(address, name);
+  async addChild() {
+    const name = `Child - ${this.address.substr(this.address.length - 5)}`;
+    const tx = await this.contract
+      .connect(this.signer)
+      .addChild(this.address, name);
 
     const receipt = await tx.wait();
     return receipt;
