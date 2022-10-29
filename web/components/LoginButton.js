@@ -34,7 +34,7 @@ const config = {
 export default function LoginButton() {
     const router = useRouter()
     const { login } = useSessionContext()
-    const { account, isReady } = useAccount()
+    const { account } = useAccount()
     const { network } = useNetwork();
     const { switchNetwork } = useSwitchNetwork();
     const { open } = useConnectModal();

@@ -10,7 +10,7 @@ const SessionContext = createContext({
 export const useSessionContext = () => useContext(SessionContext)
 
 export const SessionContextProvider = ({ children }) => {
-    const [isLogged, setIsLogged] = useState(false)
+    const [isLogged, setIsLogged] = useState(true)
     const [wallet, setWallet] = useState(null)
 
     const login = async (wallet) => {
