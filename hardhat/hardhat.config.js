@@ -1,9 +1,9 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("dotenv").config()
 
-const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || null
-const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || null
-const PRIVATE_KEY = process.env.PRIVATE_KEY || null
+const MAINNET_RPC_URL = process.env.MAINNET_RPC_URL || ''
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || ''
+const PRIVATE_KEY = process.env.PRIVATE_KEY || ''
 
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
