@@ -12,15 +12,15 @@ import Link from "next/link";
 import Image from "next/image";
 //import { Line } from "react-chartjs-2";
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-);
+// ChartJS.register(
+//     CategoryScale,
+//     LinearScale,
+//     PointElement,
+//     LineElement,
+//     Title,
+//     Tooltip,
+//     Legend
+// );
 
 const Savings = () => {
     const options = {
