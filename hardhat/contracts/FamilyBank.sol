@@ -109,6 +109,15 @@ contract FamilyBank is ERC20, AccessControl {
         investmentCounter[child]++;
     }
 
+    function isWithdrawalAvailable(address _child) external view returns (bool) {
+        for (uint i = 0; i < investmentCounter[_child]; i++) {
+            if(investments[_child][i].isPaidOut == false && investments[_child][i].unlockTime <= block.timestamp) {
+                return true;
+            } 
+        }
+
+        return false;
+    }
     function withdrawInvestment(address _child, uint256 _investmentId) internal {
         Investment memory investment = investments[_child][_investmentId];
         uint256 sumToPayOut = investment.principal + investment.interest;
