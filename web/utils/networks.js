@@ -11,7 +11,10 @@ export const gnosisTestnet = {
     default: "https://rpc.chiadochain.net",
   },
   blockExplorers: {
-    default: { name: "Gnosis Scan Explorer", url: "https://blockscout.chiadochain.net" },
+    default: {
+      name: "Gnosis Scan Explorer",
+      url: "https://blockscout.chiadochain.net",
+    },
   },
   testnet: true,
 };
@@ -29,7 +32,12 @@ export const cronosTestnet = {
     default: "https://evm-t3.cronos.org",
   },
   blockExplorers: {
-    default: { name: "CRO testnet Explorer", url: "https://cronos.org/explorer/testnet3" },
+    default: {
+      name: "CRO testnet Explorer",
+      url: "https://cronos.org/explorer/testnet3",
+    },
   },
   testnet: true,
 };
+
+export const supportedChains = [gnosisTestnet, cronosTestnet];
