@@ -1,11 +1,9 @@
-
-
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html, body { 
+html,
+body {
   padding: 0;
   margin: 0;
   font-family: var(--primary-font);
@@ -23,7 +21,7 @@ html, body {
   font-size: 16px;
   line-height: 20px;
   color: #fff;
-  background: #FF5151;
+  background: #ff5151;
 }
 .btn-red-hover {
   background: #e42424;
@@ -35,7 +33,7 @@ p {
   font-size: 14px;
   line-height: 20px;
   text-align: center;
-  color: #6E6E82;
+  color: #6e6e82;
 }
 
 h2 {
@@ -49,7 +47,7 @@ h2 {
 }
 
 .box-shadow {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 3px 12px -2px rgba(61, 87, 111, 0.2);
   border-radius: 0px 0px 6px 6px;
 }
@@ -58,7 +56,6 @@ h2 {
   padding: 5px 20px;
   margin-bottom: 25px;
   max-height: 170px;
-  
 }
 
 .box-account-type .title {
@@ -75,6 +72,11 @@ h2 {
   text-align: left;
   padding-left: 20px;
 }
+
+.background-red {
+  background: #ff5151;
+}
+
 /* 
 html,
 body {

@@ -1,7 +1,15 @@
 import Image from "next/image";
-import { Web3Modal, useConnectModal, useAccount } from "@web3modal/react";
 import { providers } from "@web3modal/ethereum";
 import { gnosisTestnet, cronosTestnet } from "../utils/networks";
+import Link from "next/link";
+
+import {
+  Web3Modal,
+  Web3Button,
+  useAccount,
+  useDisconnect,
+  useConnectModal,
+} from "@web3modal/react";
 
 const config = {
   projectId: "8f6b3f536190073bbe77b9d66f4d22da",
@@ -38,10 +46,7 @@ export default function LoginPage() {
         <div className="basis-5/12">
           <h2 style={{ marginBottom: "20px" }}>Create New account</h2>
 
-          <div
-            className="box-account-type box-shadow"
-            style={{ cursor: "pointer" }}
-          >
+          <Link className="box-account-type box-shadow" href="/dashboard">
             <div className="grid grid-rows-2 grid-flow-col gap-4">
               <div className="row-span-2">
                 <Image
@@ -56,7 +61,7 @@ export default function LoginPage() {
                 <p>For parents and children accounts</p>
               </div>
             </div>
-          </div>
+          </Link>
           <div className="box-account-type box-shadow">
             <div className="grid grid-rows-2 grid-flow-col gap-4">
               <div className="row-span-2">
@@ -79,9 +84,9 @@ export default function LoginPage() {
         <div className="basis-1/12"></div>
         <div className="basis-3/12">
           <h2 style={{ marginBottom: "20px" }}>Already have an account?</h2>
-          <div className="btn-red hover:btn-red-hover w-4/5" onClick={open}>
+          <button className="btn-red hover:btn-red-hover w-4/5" onClick={open}>
             Connect Wallet
-          </div>
+          </button>
           <Web3Modal config={config} />
         </div>
       </div>
