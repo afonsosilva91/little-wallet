@@ -73,6 +73,13 @@ contract FamilyBank is ERC20, AccessControl {
         require(balanceOf(parent) >= weeklyPayoutAmount, "FamilyBank: Not enough funds for the payout");
 
         uint256 payout = weeklyPayoutAmount;
+        for (uint256 i = 0; i < loanCounter[_child]; i++) {
+            if (loans[_child][i].isRepaid == false) {
+                // TODO: can go in the negative!
+                payout -= loans[_child][i].principal + loans[_child][i].interest;
+                loans[_child][i].isRepaid = true;
+            }
+        }
         nextPayoutTime[_child] += 1 weeks;
 
         _transfer(parent, _child, payout);

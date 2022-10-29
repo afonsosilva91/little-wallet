@@ -117,5 +117,20 @@ describe("FamilyBank", function () {
 
       expect(await familyBank.balanceOf(child.address)).to.equal(2500);
     });
+
+    it("Should take out principal and interest out of the next allowance payout", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+      const sumToBorrow = 500;
+      await familyBank.connect(child).borrow(sumToBorrow);
+
+      await time.increase(ONE_WEEK);
+      await familyBank.triggerWeeklyPayout(child.address);
+      expect(await familyBank.balanceOf(child.address)).to.equal("3900");
+
+      await time.increase(ONE_WEEK);
+      await familyBank.triggerWeeklyPayout(child.address);
+      expect(await familyBank.balanceOf(child.address)).to.equal("5900");
+    });
+
   });
 });
