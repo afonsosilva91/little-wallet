@@ -5,6 +5,8 @@ const {
 const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
 const { expect } = require("chai");
 
+const ONE_WEEK = 7 * 24 * 60 * 60;
+
 describe("FamilyBank", function () {
   async function deployFamilyBankFixture() {
     const [owner, parent, child] = await ethers.getSigners();
@@ -44,14 +46,46 @@ describe("FamilyBank", function () {
       expect(await familyBank.balanceOf(child.address)).to.equal(0);
     });
 
-    it("Should allow to withdraw investment with interest after 1 week", async function () {
+    it("Should not allow to withdraw investments if less than 1 week passed", async function () {
       const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
       const sumToInvest = 2000;
       await familyBank.connect(child).invest(sumToInvest);
 
       await familyBank.connect(child).withdrawInvestments();
 
+      expect(await familyBank.balanceOf(child.address)).to.equal(0);
+    });
+
+    it("Should allow to withdraw investments with interest after 1 week", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+      const sumToInvest = 2000;
+
+      await familyBank.connect(child).invest(sumToInvest);
+      time.increase(ONE_WEEK);
+
+      await familyBank.connect(child).withdrawInvestments();
+
       expect(await familyBank.balanceOf(child.address)).to.equal(2400);
-    })
+    });
+  });
+
+  describe("Borrowing", async function () {
+    it("Should present to the child interest on the loan", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+
+      const sumToBorrow = 500;
+      const interest = await familyBank.connect(child).calculateLoanInterest(sumToBorrow);
+
+      expect(interest).to.equal(100);
+    });
+
+    it("Should provide the loan to child", async function () {
+      const { familyBank, child } = await loadFixture(deployFamilyBankFixture);
+
+      const sumToBorrow = 500;
+      await familyBank.connect(child).borrow(sumToBorrow);
+
+      expect(await familyBank.balanceOf(child.address)).to.equal(2500);
+    });
   });
 });

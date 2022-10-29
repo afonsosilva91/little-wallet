@@ -97,7 +97,7 @@ contract FamilyBank is ERC20, AccessControl {
         address child = msg.sender;
 
         for (uint i = 0; i < investmentCounter[child]; i++) {
-            if(investments[child][i].isPaidOut == false && investments[child][i].unlockTime > block.timestamp) {
+            if(investments[child][i].isPaidOut == false && investments[child][i].unlockTime <= block.timestamp) {
                 withdrawInvestment(child, i);
             } 
         }
