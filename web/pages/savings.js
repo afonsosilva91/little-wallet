@@ -10,7 +10,7 @@
 // } from "chart.js";
 import Link from "next/link";
 import Image from "next/image";
-//import { Line } from "react-chartjs-2";
+// import { Line } from "react-chartjs-2";
 
 // ChartJS.register(
 //     CategoryScale,

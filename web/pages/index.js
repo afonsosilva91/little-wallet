@@ -98,7 +98,7 @@ export default function Home() {
                 <div className="flex">
                     {kids.map((kid) => (
                         <Link key={kid.name} href={kid.link} className="mr-4">
-                            <Image height={'auto'} width={'auto'} className="rounded-full" src={kid.pictureurl} />
+                            <img className="rounded-full" src={kid.pictureurl} />
                             <span>{kid.name}</span>
                         </Link>
                     ))}
@@ -115,7 +115,7 @@ export default function Home() {
                         >
                             <tr style={{ height: "60px" }}>
                                 <td className="flex py-4">
-                                    <Image height={'auto'} width={'auto'} 
+                                    <img
                                         className="mr-8"
                                         src={purchase.pictureurl}
                                         style={{ borderRadius: "18px" }}
