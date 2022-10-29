@@ -22,9 +22,25 @@ body {
   line-height: 20px;
   color: #fff;
   background: #ff5151;
+  cursor: pointer;
 }
 .btn-red-hover {
   background: #e42424;
+}
+.btn-grey {
+  display: inline-block;
+  min-width: 100%;
+  text-align: center;
+  height: 50px;
+  border-radius: 15px;
+  padding: 15px 50px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #fff;
+  background: #6E6E82;
+  cursor: pointer;
 }
 
 p {
