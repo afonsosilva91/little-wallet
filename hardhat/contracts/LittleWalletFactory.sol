@@ -9,23 +9,30 @@ contract LittleWalletFactory is AccessControl {
 
     FamilyBank[] private _families;
 
+    address public currentFamily;
+
     constructor() {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     }
 
     function createAccount() external onlyRole(DEFAULT_ADMIN_ROLE) {
-        FamilyBank family = new FamilyBank(
-            name,
-            msg.sender
-        );
+        FamilyBank family = new FamilyBank(name, msg.sender);
         _families.push(family);
     }
 
-    // items to buy
+    function setCurrentFamily(address _currentFamily) external onlyRole(DEFAULT_ADMIN_ROLE) {
+        currentFamily = _currentFamily;
+    }
 
-    function runAllowences() external onlyRole(CRON_ROLE) {
-        require(condition);
-       
-       //.safeTransferFrom(msg.sender, address(this), _amount);
+    function checkAccount(address wallet) external view returns (bool existingAccount, string name, string role) {
+        IFamilyBank _familyBank = IFamilyBank(currentFamily);
+        
+        if (_familyBank.hasRole(_familyBank.PARENT_ROLE, wallet)) {
+            return (true, "", "PARENT");
+        } else if(children[wallet]) {
+            return (true, children[wallet].name, "CHILD");
+        }
+
+        return (false, "", "");
     }
 }

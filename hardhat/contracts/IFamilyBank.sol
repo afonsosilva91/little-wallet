@@ -1,20 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import {AccessControl} from "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import {AccessControl} from "@openzeppelin/contracts/access/IAccessControl.sol";
 
-interface IFamilyBank is ERC20, AccessControl {
+interface IFamilyBank is IERC20, IAccessControl {
     bytes32 public constant PARENT_ROLE = keccak256("PARENT");
 
-    address public parent;
-    address public child;
-    mapping(address => uint256) accounts;
-
-    mapping(address => uint256) invested;
-    mapping(address => uint256) borrowed;
-
-    uint256 public investmentInterest;
-    uint256 public borrowInterest;
-    uint256 public weeklyPayoutAmount = 2000;
+    function addChild(address _child, string memory name) external;
+    function removeChild(address _child) external;
+    function getChild(address _child) external view returns(string memory);
 }

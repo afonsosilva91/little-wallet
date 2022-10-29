@@ -13,7 +13,7 @@ contract FamilyBank is ERC20, AccessControl {
         string name;
     }
 
-    mapping(address => Person) children;
+    mapping(address => Person) public children;
 
     mapping(address => uint256) invested;
     mapping(address => uint256) borrowed;
@@ -33,27 +33,19 @@ contract FamilyBank is ERC20, AccessControl {
         
         _mint(_parent, 6000);
 
-        weeklyPayout();
+        //weeklyPayout();
     }
 
-    function addChild(address _child, string memory name) onlyRole(PARENT_ROLE) {
-        children[_child] = true;
+    function addChild(address _child, string memory name) external onlyRole(PARENT_ROLE) {
+        children[_child].name = name;
     }
 
-    function removeChild(address _child) onlyRole(PARENT_ROLE) {
-        children[_child] = false;
+    function removeChild(address _child) external onlyRole(PARENT_ROLE) {
+        delete children[_child];
     }
 
-    function weeklyPayout() public onlyRole(DEFAULT_ADMIN_ROLE) {
-        // pay out the weekly allowance minus the debt and interest
-        require(balanceOf(parent) >= weeklyPayoutAmount, "FamilyBank: Not enough funds for the payout");
-
-        uint256 payout = weeklyPayoutAmount;
-        if (borrowed[child] > 0) {
-            payout = payout - investmentInterest * borrowed[child];
-        }
-
-        _transfer(parent, child, payout);
+    function getChild(address _child) external view returns(string memory) {
+        return children[_child].name;
     }
 
     // function invest() {
