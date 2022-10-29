@@ -466,6 +466,11 @@
 				"internalType": "uint256",
 				"name": "_sum",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_child",
+				"type": "address"
 			}
 		],
 		"name": "calculateLoanInterest",
@@ -598,6 +603,25 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_child",
+				"type": "address"
+			}
+		],
+		"name": "isWithdrawalAvailable",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",

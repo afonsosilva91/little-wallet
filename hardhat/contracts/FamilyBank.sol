@@ -54,7 +54,7 @@ contract FamilyBank is ERC20, AccessControl {
         _mint(parent, 7500);
     }
 
-    function addChild(address _child, string memory name) external onlyRole(PARENT_ROLE) {
+    function addChild(address _child, string memory name) external {
         children[_child] = Person(name);
         _grantRole(CHILD_ROLE, _child);
         nextPayoutTime[_child] = block.timestamp;
