@@ -22,6 +22,10 @@ class ContractApi {
     );
   }
 
+  getAddress() {
+    return this.address;
+  }
+
   async checkAccount() {
     const result = await this.contract.checkAccount(this.address);
     console.log("Result", result);
@@ -29,6 +33,7 @@ class ContractApi {
   }
 
   async borrow(amount) {
+    console.log("Borrow");
     const tx = await this.contract.connect(this.signer).borrow(amount);
 
     const receipt = await tx.wait();

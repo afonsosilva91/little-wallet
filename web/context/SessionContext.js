@@ -1,41 +1,41 @@
-import { createContext, useContext, useState } from "react"
+import { createContext, useContext, useState } from "react";
 
 const SessionContext = createContext({
-    isLogged: false,
-    wallet: '',
-    login: (wallet) => {},
-    logout: () => {}
-})
+  isLogged: false,
+  contractApi: null,
+  login: (contractApi) => {},
+  logout: () => {},
+});
 
-export const useSessionContext = () => useContext(SessionContext)
+export const useSessionContext = () => useContext(SessionContext);
 
 export const SessionContextProvider = ({ children }) => {
-    const [isLogged, setIsLogged] = useState(true)
-    const [wallet, setWallet] = useState(null)
+  const [isLogged, setIsLogged] = useState(true);
+  const [contractApi, setContractApi] = useState(null);
 
-    const login = async (wallet) => {
-        setWallet(wallet)
-        setIsLogged(true)
-    }
+  const login = async (contractApi) => {
+    setContractApi(contractApi);
+    setIsLogged(true);
+  };
 
-    const logout = async() => {
-        setIsLogged(false)
-        setWallet(null)
-        //disconnect()
-    }
+  const logout = async () => {
+    setIsLogged(false);
+    setContractApi(null);
+    //disconnect()
+  };
 
-    const context = { 
-        isLogged,
-        wallet,
-        login,
-        logout
-    }
-    
-    return (
-        <SessionContext.Provider value={context}>
-            {children}
-        </SessionContext.Provider>
-    )
-}
+  const context = {
+    isLogged,
+    contractApi,
+    login,
+    logout,
+  };
 
-export default SessionContext
+  return (
+    <SessionContext.Provider value={context}>
+      {children}
+    </SessionContext.Provider>
+  );
+};
+
+export default SessionContext;
