@@ -13,7 +13,7 @@ export default function Home() {
     const [walletBalance, setWalletBalance] = useState(0)
     const [history, setHistory] = useState([])
 
-    const getBalance = async() => {
+    const getBalance = async () => {
         let balance = 0
 
         try {
@@ -31,14 +31,14 @@ export default function Home() {
                     value: balance + " $",
                     sent: true
                 })
-                
+
                 setHistory(history)
             }
-            
+
         } catch (error) {
             console.log(error)
         }
-        
+
         return balance
     }
 
@@ -49,7 +49,7 @@ export default function Home() {
     }, [isLogged])
 
     useEffect(() => {
-        if(!isLogged) {
+        if (!isLogged) {
             router.push("/login")
             return;
         }
@@ -68,7 +68,6 @@ export default function Home() {
         },
     ];
 
-  const randHash = () => {
     return (
         <div className="h-screen flex flex-col px-8">
             <div style={{ marginLeft: "-2rem", marginRight: "-2rem" }}>
@@ -84,7 +83,7 @@ export default function Home() {
                     <div className="header-circle-medium"></div>
                     <div className="header-circle-small"></div>
                     <h2>Balance</h2>
-                    <h6 className="text-center" style={{paddingTop: '7px'}}>{walletBalance}$</h6>
+                    <h6 className="text-center" style={{ paddingTop: '7px' }}>{walletBalance}$</h6>
                 </div>
                 <div className="flex justify-between mx-8"
                     style={{
@@ -99,14 +98,14 @@ export default function Home() {
                     }}
                 >
                     <Link className="btn-header-icon" href={'/savings'}>
-                        <Image width={25} height={25} alt={''} src={'/icons/wallet.png'} style={{margin: '0 auto'}} />
-                        <span style={{fontSize: '14px', fontWeight: '500', lineHeight: '20px', color: '#232440'}}>Savings</span>
+                        <Image width={25} height={25} alt={''} src={'/icons/wallet.png'} style={{ margin: '0 auto' }} />
+                        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px', color: '#232440' }}>Savings</span>
                     </Link>
                     <Link className="btn-header-icon" href={'/loans'}>
-                        <Image width={25} height={25} alt={''} src={'/icons/dollar.png'} style={{margin: '0 auto'}} />
-                        <span style={{fontSize: '14px', fontWeight: '500', lineHeight: '20px', color: '#232440'}}>Loans</span>
+                        <Image width={25} height={25} alt={''} src={'/icons/dollar.png'} style={{ margin: '0 auto' }} />
+                        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px', color: '#232440' }}>Loans</span>
                     </Link>
-                   
+
                 </div>
             </div>
             <div className="mt-4 box-family">
@@ -147,8 +146,7 @@ export default function Home() {
                     ))}
                 </table>
             </div>
-            
+
         </div>
     );
-  };
-}
+};
