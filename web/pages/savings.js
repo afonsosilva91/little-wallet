@@ -2,41 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 const Savings = () => {
-  const data = [
-    {
-      name: "Today",
-      savings: 10,
-    },
-    {
-      name: "1 day",
-      savings: 10 + 4 / 7,
-    },
-    {
-      name: "2 days",
-      savings: 10 + (4 / 7) * 2,
-    },
-    {
-      name: "3 days",
-      savings: 10 + (4 / 7) * 3,
-    },
-    {
-      name: "4 days",
-      savings: 10 + (4 / 7) * 4,
-    },
-    {
-      name: "5 days",
-      savings: 10 + (4 / 7) * 5,
-    },
-    {
-      name: "6 days",
-      savings: 10 + (4 / 7) * 6,
-    },
-    {
-      name: "7 days",
-      savings: 10 + (4 / 7) * 7,
-    },
-  ];
-
   return (
     <>
       <div className="box-bar-header">
@@ -59,8 +24,14 @@ const Savings = () => {
       >
         <div className="box-graphs px-8 pt-6">
           <h3 className="w-100 mb-4">
-            Simulation of your possible earnings with your current balance
+            Simulation of your possible earnings with $10
           </h3>
+        </div>
+        <div className="box-graphs px-8 pt-6">
+          <h5 className="w-100 mb-4">Today: $10</h5>
+          <h5 className="w-100 mb-4">In 7 days: $12</h5>
+          <h5 className="w-100 mb-4">In 14 days: $14</h5>
+          <h5 className="w-100 mb-4">In 30 days: $16</h5>
         </div>
 
         <div className="h-screen flex flex-col ">
