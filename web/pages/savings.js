@@ -1,49 +1,7 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
 import Link from "next/link";
 import Image from "next/image";
 
 const Savings = () => {
-  const labels = [
-    "Today",
-    "1 day",
-    "2 days",
-    "3 days",
-    "4 days",
-    "5 days",
-    "6 days",
-    "7 days",
-  ];
-
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: "Simulated savings started with $10",
-  //       data: [
-  //         10,
-  //         10 + 4 / 7,
-  //         10 + (4 / 7) * 2,
-  //         10 + (4 / 7) * 3,
-  //         10 + (4 / 7) * 4,
-  //         10 + (4 / 7) * 5,
-  //         10 + (4 / 7) * 6,
-  //         10 + (4 / 7) * 7,
-  //       ],
-  //       borderColor: "rgb(255, 99, 132)",
-  //       backgroundColor: "rgba(255, 99, 132, 0.5)",
-  //     },
-  //   ],
-  // };
-
   const data = [
     {
       name: "Today",
@@ -103,24 +61,6 @@ const Savings = () => {
           <h3 className="w-100 mb-4">
             Simulation of your possible earnings with your current balance
           </h3>
-          <LineChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="savings" stroke="#82ca9d" />
-          </LineChart>
         </div>
 
         <div className="h-screen flex flex-col ">
