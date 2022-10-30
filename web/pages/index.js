@@ -1,55 +1,70 @@
 import { useAccount, useBalance } from "@web3modal/react"
 import Link from "next/link"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from 'next/router'
 import { useSessionContext } from '../context/SessionContext'
 import Image from "next/image"
+import { ContractApi } from "../utils/contractApi"
+import { utils } from "ethers"
 
 export default function Home() {
     const router = useRouter()
     const { isLogged, wallet } = useSessionContext()
-    const { account } = useAccount()
-    const { data, error, isLoading, refetch } = useBalance({
-        addressOrName: account.address
-    })
+    const [walletBalance, setWalletBalance] = useState(0)
+    const [history, setHistory] = useState([])
+
+    const getBalance = async() => {
+        let balance = 0
+
+        try {
+            const contractApi = new ContractApi()
+            await contractApi.setup()
+            balance = await contractApi.contract.provider.getBalance(wallet)
+            balance = utils.formatEther(balance)
+            balance = (+balance).toFixed(2)
+            setWalletBalance(balance)
+
+            if (history.length == 0) {
+                history.push({
+                    name: "Top up - weekly allowence",
+                    pictureurl: "/icons/top-up.png",
+                    value: balance + " $",
+                    sent: true
+                })
+                
+                setHistory(history)
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+        
+        return balance
+    }
+
+    useEffect(() => {
+        if (walletBalance == 0) {
+            getBalance()
+        }
+    }, [isLogged])
 
     useEffect(() => {
         if(!isLogged) {
             router.push("/login")
             return;
         }
-
-        console.log(data, account)
     })
 
-    const randHash = () => {
-        return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    }
     const kids = [
         {
             name: "Kid 1",
             link: "/savings",
-            pictureurl: `https://avatars.dicebear.com/api/identicon/${randHash()}.png`,
+            pictureurl: `https://avatars.dicebear.com/api/identicon/mhhgnd5245kcisi1jp08j8.png`,
         },
         {
             name: "Kid 2",
             link: "/loans",
-            pictureurl: `https://avatars.dicebear.com/api/identicon/${randHash()}.png`,
-        },
-    ];
-
-    const purchasesHistory = [
-        {
-            name: "Purchase 1",
-            pictureurl: "https://picsum.photos/50/50.jpg",
-            value: "$2",
-            sent: true,
-        },
-        {
-            name: "Purchase 2",
-            pictureurl: "https://picsum.photos/50/50.jpg",
-            value: "$10",
-            sent: false,
+            pictureurl: `https://avatars.dicebear.com/api/identicon/mhh234kd1kcisi1jp08j8.png`,
         },
     ];
 
@@ -68,7 +83,7 @@ export default function Home() {
                     <div className="header-circle-medium"></div>
                     <div className="header-circle-small"></div>
                     <h2>Balance</h2>
-                    <h6 className="text-center" style={{paddingTop: '7px'}}>12,000$</h6>
+                    <h6 className="text-center" style={{paddingTop: '7px'}}>{walletBalance}$</h6>
                 </div>
                 <div className="flex justify-between mx-8"
                     style={{
@@ -98,7 +113,7 @@ export default function Home() {
                 <div className="flex">
                     {kids.map((kid) => (
                         <Link key={kid.name} href={kid.link} className="mr-4">
-                            <img className="rounded-full" src={kid.pictureurl} />
+                            <img className="rounded-full" src={`${kid.pictureurl}`} />
                             <span>{kid.name}</span>
                         </Link>
                     ))}
@@ -108,9 +123,9 @@ export default function Home() {
             <div className="mt-4 box-history">
                 <h3 className="w-100 mt-4">Purchases history</h3>
                 <table className="w-full">
-                    {purchasesHistory.map((purchase) => (
+                    {history.map((purchase, idx) => (
                         <tbody
-                            key={purchase.name}
+                            key={idx}
                             style={{ borderBottom: "1px solid #E8E7E7" }}
                         >
                             <tr style={{ height: "60px" }}>
