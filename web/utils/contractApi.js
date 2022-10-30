@@ -10,19 +10,33 @@ class ContractApi {
 
   // Needs to be called after the contructor
   async setup() {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const accounts = await provider.send("eth_requestAccounts", []);
-    this.address = accounts[0];
-    this.signer = provider.getSigner();
+    try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const accounts = await provider.send("eth_requestAccounts", []);
+      this.address = accounts[0];
+      this.signer = provider.getSigner();
 
-    this.contract = new ethers.Contract(
-      "0xd139987758C853179dB0a58c7Ebbb509a15F4c45",
-      familyBankAbi,
-      provider
-    );
+      this.contract = new ethers.Contract(
+        "0xd139987758C853179dB0a58c7Ebbb509a15F4c45",
+        familyBankAbi,
+        provider
+      );
+    } catch (error) {
+      console.log('[ContractApi.setup] error: ', error)
+    }
+    
   }
 
-  getAddress() {
+  async getWalletBalance(_address) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    return await provider.getBalance(_address);
+  }
+
+  async checkAccount(_address) {
+    const result = await this.contract.checkAccount(_address);
+  }
+  
+  async getAddress() {
     return this.address;
   }
 

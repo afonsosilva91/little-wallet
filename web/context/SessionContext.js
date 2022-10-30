@@ -1,32 +1,33 @@
 import { createContext, useContext, useState } from "react";
 
 const SessionContext = createContext({
-  isLogged: false,
-  contractApi: null,
-  login: (contractApi) => {},
-  logout: () => {},
-});
+    isLogged: false,
+    wallet: '',
+    login: (wallet) => {},
+    logout: () => {},
+    setProvider: () => {}
+})
+
 
 export const useSessionContext = () => useContext(SessionContext);
 
 export const SessionContextProvider = ({ children }) => {
-  const [isLogged, setIsLogged] = useState(true);
-  const [contractApi, setContractApi] = useState(null);
+    const [isLogged, setIsLogged] = useState(false)
+    const [wallet, setWallet] = useState(null)
 
-  const login = async (contractApi) => {
-    setContractApi(contractApi);
+  const login = async (_wallet) => {
+    setWallet(_wallet)
     setIsLogged(true);
   };
 
   const logout = async () => {
     setIsLogged(false);
-    setContractApi(null);
     //disconnect()
   };
 
   const context = {
     isLogged,
-    contractApi,
+    wallet,
     login,
     logout,
   };

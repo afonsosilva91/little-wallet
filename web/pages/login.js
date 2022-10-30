@@ -19,7 +19,6 @@ export default function Login() {
                 <div className="basis-2/12">
                     <div className="btn-grey hover:btn-red-hover w-4/5">
                         Create an account <sup><span style={{fontSize: '10px'}}>SOON</span></sup>
-                        
                     </div>
                 </div>
                 <div className="basis-1/12 pb-5"></div>
