@@ -10,6 +10,7 @@ import { utils } from "ethers"
 export default function Home() {
     const router = useRouter()
     const { isLogged, wallet } = useSessionContext()
+    const { account } = useAccount()
     const [walletBalance, setWalletBalance] = useState(0)
     const [history, setHistory] = useState([])
 
@@ -36,7 +37,7 @@ export default function Home() {
             }
 
         } catch (error) {
-            console.log(error)
+            console.log('[getBalance] . ')
         }
 
         return balance
@@ -46,7 +47,7 @@ export default function Home() {
         if (walletBalance == 0) {
             getBalance()
         }
-    }, [isLogged])
+    }, [isLogged, account.address])
 
     useEffect(() => {
         if (!isLogged) {

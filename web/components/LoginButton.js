@@ -16,6 +16,7 @@ import { ContractApi } from "../utils/contractApi";
 import { useEffect, useState } from "react";
 import { useSessionContext } from "../context/SessionContext";
 import { useRouter } from "next/router";
+import Ellipsis from "./Loading/Ellipsis";
 
 const config = {
     projectId: "8f6b3f536190073bbe77b9d66f4d22da",
@@ -41,7 +42,8 @@ export default function LoginButton() {
     const { open } = useConnectModal()
     const [joinFamily, setJoinFamily] = useState(false)
 
-    const { switchNetwork } = useSwitchNetwork();
+    const [trigger, setTrigger] = useState(0)
+    const { switchNetwork, error: networkError } = useSwitchNetwork();
     const [isNetworkSupported, setIsNetworkSupported] = useState(false)
 
     useEffect(() => {
@@ -60,12 +62,12 @@ export default function LoginButton() {
 
     const checkAccount = async () => {
         try {
-            console.log('checkAccount > ContractApi')
             const contractApi = new ContractApi()
             await contractApi.setup()
 
             const result = await contractApi.checkAccount(account.address)
             if (result.existingAccount) {
+                setTrigger(0)
                 console.log(account)
                 login(account.address)
                 router.push("/")
@@ -77,7 +79,7 @@ export default function LoginButton() {
             }
 
         } catch (ex) {
-            console.log('[checkAccount] exception: ', ex)
+            setTrigger(trigger+1)
         }
     }
 
@@ -97,6 +99,10 @@ export default function LoginButton() {
             checkAccount()
         }
     }, [account.isConnected, isNetworkSupported])
+// }, [account.isConnected, isNetworkSupported, trigger, networkError])
+    if (trigger > 0) {
+        return (<Ellipsis color={'#333'} />)
+    }
 
     return (
         <>

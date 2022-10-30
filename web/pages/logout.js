@@ -1,6 +1,7 @@
 //import { useDisconnect } from "@web3modal/react"
 import { Router, useRouter } from "next/router"
 import { useEffect } from "react"
+import Ellipsis from "../components/Loading/Ellipsis"
 import { useSessionContext } from "../context/SessionContext"
 
 export default function Logout() {
@@ -11,14 +12,13 @@ export default function Logout() {
        // useDisconnect()
         logout()
 
-        console.log(wallet, isLogged)
-        //router.push('/')
+        router.push('/')
     })
 
     return (
         <>
-            <div className="h-screen flex flex-col px-8">
-               LOGOUT
+            <div className="h-screen flex px-20 text-center">
+                <Ellipsis color={'#333'} />
             </div>
         </>
     )
