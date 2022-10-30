@@ -42,6 +42,7 @@ export default function LoginButton() {
   const { open } = useConnectModal();
   const [accountCreated, setAccountCreated] = useState(false);
   const [creatingAccount, setCreatingAccount] = useState(false);
+  const [contractApi, setContractApi] = useState(false);
 
   const supportedNetwork = () => {
     const filteredChains = supportedChains.filter(
@@ -58,7 +59,6 @@ export default function LoginButton() {
   };
 
   const upsertAccount = async () => {
-    console.log("upsertAccount");
     const contractApi = new ContractApi();
     await contractApi.setup();
 
@@ -69,6 +69,7 @@ export default function LoginButton() {
       await contractApi.addChild();
       const result = await contractApi.checkAccount();
       setAccountCreated(result[0]);
+      setContractApi(contractApi);
     }
   };
 
@@ -79,11 +80,11 @@ export default function LoginButton() {
       setCreatingAccount(false);
       return;
     }
-  }, [account]);
+  }, [account.isConnected]);
 
   useEffect(() => {
-    if (account.isConnected && supportedNetwork() && accountCreated) {
-      login(account.address);
+    if (accountCreated) {
+      login(contractApi);
       router.push("/");
       return;
     }
