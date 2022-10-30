@@ -15,7 +15,7 @@ export const SessionContextProvider = ({ children }) => {
     const [isLogged, setIsLogged] = useState(false)
     const [wallet, setWallet] = useState(null)
 
-  const login = async (contractApi) => {
+  const login = async () => {
     setIsLogged(true);
   };
 
