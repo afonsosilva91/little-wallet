@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import Image from "next/image";
 import Transactions from "../components/Transactions";
@@ -95,6 +94,7 @@ const Loans = () => {
             </div>
         </>
     );
+
 };
 
 export default Loans;
