@@ -5,12 +5,12 @@ export default function Transactions({ data, title }) {
 
     return (
         <>
-            <div className="mt-4 box-history px-8" style={{background: '#fff', minHeight: '200px'}}>
+            <div className="mt-4 box-history px-8" style={{ background: '#fff', minHeight: '200px' }}>
                 <h3 className="w-100 mt-4">{title}</h3>
                 <table className="w-full">
-                    
+
                     {data.length == 0 ? (
-                        <tbody><tr style={{ height: "60px" }}><td><p>Empty</p></td></tr> </tbody>
+                        <tbody><tr style={{ height: "60px" }}><td><p>Empty</p></td></tr></tbody>
                     ) : null}
                     {data.map((purchase, idx) => (
                         <tbody
@@ -31,7 +31,6 @@ export default function Transactions({ data, title }) {
                                 </td>
                                 <td>{purchase.value}</td>
                             </tr>
-                            </tbody>
                         </tbody>
                     ))}
                 </table>
