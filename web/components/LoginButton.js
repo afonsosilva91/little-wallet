@@ -3,8 +3,7 @@ import {
     useConnectModal,
     useAccount,
     useNetwork,
-    useSwitchNetwork,
-    useDisconnect,
+    useSwitchNetwork
 } from "@web3modal/react";
 import { providers } from "@web3modal/ethereum";
 import {

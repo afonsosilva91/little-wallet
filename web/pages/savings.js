@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-<<<<<<< HEAD
 import Transactions from "../components/Transactions";
 import { useState } from "react";
 // import { Line } from "react-chartjs-2";
@@ -29,25 +28,7 @@ const Savings = () => {
             },
         },
     };
-=======
 
-const Savings = () => {
-  return (
-    <>
-      <div className="box-bar-header">
-        <div className="flex flex-row">
-          <div className="basis-4/12 back-arrow">
-            <Link href={"/"}>
-              <Image width={24} height={24} alt={""} src={"/icons/back.svg"} />
-            </Link>
-          </div>
-          <div className="basis-4/12 header-title">
-            <span>Savings</span>
-          </div>
-          <div className="basis-4/12"></div>
-        </div>
-      </div>
->>>>>>> f3f20ebd8c0f74852d64e9c64e10509cca047213
 
       <div
         className="h-screen flex flex-col py-2"
@@ -65,7 +46,6 @@ const Savings = () => {
           <h5 className="w-100 mb-4">In 30 days: $16</h5>
         </div>
 
-<<<<<<< HEAD
     const data = {
         labels,
         datasets: [
@@ -134,21 +114,7 @@ const Savings = () => {
             </div>
         </>
     );
-=======
-        <div className="h-screen flex flex-col ">
-          <div className="flex justify-between">
-            <button className="btn-red" style={{ minWidth: "auto" }}>
-              Save
-            </button>
-            <button className="btn-red" style={{ minWidth: "auto" }}>
-              Withdraw
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  );
->>>>>>> f3f20ebd8c0f74852d64e9c64e10509cca047213
+
 };
 
 export default Savings;
