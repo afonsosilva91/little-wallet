@@ -41,7 +41,6 @@ export default function LoginButton() {
     const { open } = useConnectModal()
     const [joinFamily, setJoinFamily] = useState(false)
 
-
     const { switchNetwork } = useSwitchNetwork();
     const [isNetworkSupported, setIsNetworkSupported] = useState(false)
 
@@ -78,9 +77,6 @@ export default function LoginButton() {
             }
 
         } catch (ex) {
-            const disconnect = useDisconnect()
-            disconnect()
-
             console.log('[checkAccount] exception: ', ex)
         }
     }
